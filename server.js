@@ -2,9 +2,7 @@ require('dotenv').config();
 const http = require('http');
 const { processLeadData } = require('./mapping_function');
 
-// 👇 .env DOSYASINDAN ŞİFRENİZİ OKUYACAK ŞEKİLDE AYARLANDI 👇
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "YOUR_API_KEY";
-// 👆 .env DOSYASINDAN ŞİFRENİZİ OKUYACAK ŞEKİLDE AYARLANDI 👆
 
 const PORT = 3000;
 
