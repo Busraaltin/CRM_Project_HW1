@@ -1,0 +1,62 @@
+{
+  "name": "Lead Capture Workflow",
+  "description": "Captures leads via webhook, maps data, saves to Google Sheets, and summarizes with AI.",
+  "nodes": [
+    {
+      "id": "node-1",
+      "type": "webhook",
+      "name": "HTTP Webhook Trigger",
+      "description": "Receives incoming POST request with lead data.",
+      "config": {
+        "method": "POST",
+        "expectedBody": [
+          "name",
+          "email",
+          "company",
+          "message"
+        ]
+      }
+    },
+    {
+      "id": "node-2",
+      "type": "processing",
+      "name": "Data Mapping",
+      "description": "Maps raw payload to standardized lead format.",
+      "fileReference": "mapping_function.js"
+    },
+    {
+      "id": "node-3",
+      "type": "integration",
+      "name": "Google Sheets API",
+      "description": "Appends the mapped lead data to a new row in a spreadsheet.",
+      "config": {
+        "spreadsheetId": "1Upim9Fu8aDw5V_2egQIJL74mHnox2xEHyZqfz8-W-ss",
+        "sheetName": "Leads"
+      }
+    },
+    {
+      "id": "node-4",
+      "type": "ai_action",
+      "name": "AI Lead Summarization & Scoring",
+      "description": "Summarizes the lead message and assigns a Low/Medium/High interest rating.",
+      "config": {
+        "prompt": "Analyze the following lead message and provide a brief summary. Assign an interest rating of Low, Medium, or High based on the urgency and content of the message.",
+        "inputField": "inquiry_message"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "node-1",
+      "target": "node-2"
+    },
+    {
+      "source": "node-2",
+      "target": "node-3"
+    },
+    {
+      "source": "node-3",
+      "target": "node-4"
+    }
+  ]
+}
