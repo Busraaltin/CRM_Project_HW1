@@ -2,6 +2,7 @@ require('dotenv').config();
 const http = require('http');
 const { processLeadData } = require('./mapping_function');
 
+
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "YOUR_API_KEY";
 
 const PORT = 3000;
@@ -33,8 +34,8 @@ const server = http.createServer((req, res) => {
         // Adım 3: Gemini AI ile Özeti Çıkarma ve Öncelik Belirleme
         console.log("\n🟣 3. AI İşlemi (Gemini API): Gemini'ye analiz için yollanıyor...");
 
-        let aiSummary = "Özet çıkarılamadı.";
-        let aiRating = "Default Medium";
+        let aiSummary = "There is a request from a customer with a message. ";
+        let aiRating = "Medium";
 
         if (GEMINI_API_KEY && GEMINI_API_KEY !== "YOUR_API_KEY" && !GEMINI_API_KEY.includes("Buraya")) {
           try {
